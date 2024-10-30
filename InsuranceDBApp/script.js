@@ -2,7 +2,7 @@
 import { type } from 'os';
 // Import the PostgreSQL library
 
-import { Client } from 'pg';         // Get client information from PGAdmin4
+const { Client } = require('pg');     // Get client information from PGAdmin4
 
 // Create a new client instance with your database connection details
 const client = new Client({

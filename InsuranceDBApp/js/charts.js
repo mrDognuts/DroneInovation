@@ -1,3 +1,6 @@
+import Chart from 'chart.js/auto';
+
+
 const chart = document.querySelector("#chart").getContext('2d');
 
 new Chart(chart, {
