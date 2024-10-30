@@ -1,19 +1,19 @@
 /* default values for color scheme used on dashboard */
 
-:root
-{
+:root{
     --color-white: #ffffff; 
     --color-gray-light: #d3d3d3; 
     --color-gray-dark: #808080; 
     --color-light: #f0f8ff; 
     --color-dark: #2e2e2e; 
-    --color-primary: #1e90ff; 
+    --color-primary: #b3e7ffa4; 
+    --color-font: #fdf2e9;
     --color-success: #28a745; 
     --color-danger: #dc3545; 
     --color-warning: #ffc107; 
     --color-blue: #00bfff; 
         
-    --color-primary-blue: #1e90ff; 
+    
     --color-success-light: #a8d5a2; 
     --color-danger-light: #f5a1a1; 
     --color-primary-light: #b3e7ff; 
@@ -27,108 +27,110 @@
     --border-radius-2: .15rem;
 }
 
-body
-{
-    background: var(--color-gray-light);
+body{
+    background: var(--color-blue);
     font-family: "Gowun Batang", sans-serif;
     min-height: 100vh;
-    color: var(--color-dark);
+    color: var(--color-font);
 }
 
-img
-{
+img{
     width: 100%;   
 }
 
-h1
-{
+h1{
     font-size: 2.2rem;
 }
 
-h2
-{
+h2{
     font-size: 1.5rem;
 }
 
-h3
-{
+h3{
     font-size: 1.2rem;
 }
 
-h4
-{
+h4{
     font-size: 1rem;
 }
 
-h5
-{
+h5{
     font-size: .86rem;
     font-weight: 500;
 }
 
-h6
-{
+h6{
     font-size: .76rem;
 }
 
-p
-{
+p{
     font-size: .86rem;
     color: var(--color-gray-dark);
 }
 
-small
-{
+small{
     font-weight: 300;
     font-size: .77rem;
 }
 
-.text-muted
-{
+.text-muted{
     color: var(--color--light);
 }
 
-.bg-primary
+.primary
 {
+    color: var(--color-primary);
+}
+
+.danger
+{
+    color: var(--color-danger);
+}
+
+.success
+{
+    color: var(--color-success);
+}
+
+.blue
+{
+    color: var(--color-blue);
+}
+
+.bg-primary{
     background: var(--color-primary);
     box-shadow: 0 .8rem .8rem var(--color-primary-light);
 }
 
-.bg-danger
-{
+.bg-danger{
     background: var(--color-danger);
     box-shadow: 0 .8rem .8rem var(--color-danger-light);
 }
 
-.bg-success
-{
+.bg-success{
     background: var(--color-success);
     box-shadow: 0 .8rem .8rem var(--color-success-light);
 }
 
-.bg-blue
-{
+.bg-blue{
     background: var(--color-blue);
     box-shadow: 0 .8rem .8rem var(--color-primary-light);
 }
 
-.bg-dark
-{
+.bg-dark{
     background: var(--color-dark);
     box-shadow: 0 .8rem .8rem var(--color-gray-dark);
 }
 
  /* navigation styles */
 
-nav
-{
+nav{
     width: 100%;
     background: var(--color-white);
     padding: 1rem 0;
 }
 
-nav .header
-{
+nav .header{
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -137,13 +139,11 @@ nav .header
     margin: 0 auto;  
 }
 
-nav img .logo
-{
+nav img .logo{
     width: 7rem;
 }
 
-nav .searchbar
-{
+nav .searchbar{
     background: var(--color-light);
     padding: var(--padding-2) var(--card-padding);
     width: 32vw;
@@ -155,8 +155,7 @@ nav .searchbar
     left: 15%;
 }
 
-nav .searchbar input[type="search"]
-{
+nav .searchbar input[type="search"]{
     color: var(--color-dark);
     background: transparent;
     border-color: transparent;
@@ -164,21 +163,18 @@ nav .searchbar input[type="search"]
 }
 
 
-nav .search-bar input[type="search"]::placeholder
-{
+nav .search-bar input[type="search"]::placeholder{
     color: var(--color-gray-dark);
 }
 
-nav .profile
-{
+nav .profile{
     display: flex;
     align-items: center;
     justify-content: space-around;
     gap: 4rem;
 }
 
-nav .profile .themetoggle
-{
+nav .profile .themetoggle{
     display: flex;
     background: var(--color-light);
     width: 5rem;
@@ -187,8 +183,7 @@ nav .profile .themetoggle
     cursor: pointer;
 }
 
-nav .profile .themetoggle span
-{
+nav .profile .themetoggle span{
     width: 50%;
     height: 100%;
     display: flex;
@@ -197,22 +192,19 @@ nav .profile .themetoggle span
     font-size: 1.3rem;
 }
 
-nav .profile .themetoggle .active
-{
+nav .profile .themetoggle .active{
     background: var(--color-dark);
     border-radius: var(--border-radius-2);
     color: var(--color-white);
 }
 
-nav .profile 
-{
+nav .profile {
     display: flex;
     gap: 1rem;
     align-items: center;   
 }
 
-nav .profile .profile-photo
-{
+nav .profile .profile-photo{
     display: block;
     width: 3rem;
     height: 3rem;
@@ -220,15 +212,13 @@ nav .profile .profile-photo
     overflow: hidden;
 }
 
-nav .profile button
-{
+nav .profile button{
     display: none;
 }
 
     /* aside and sidebar styles */
 
-main
-{
+main{
     display: grid;
     grid-template-columns: 16rem auto 30rem;
     gap: 2rem;
@@ -236,22 +226,22 @@ main
     margin: 1rem auto 4rem;
 }
 
-main aside
-{
+main aside{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 88vh;
 }
 
- /* for mobile and tablets only */
-main aside button #close
-{
+/* button for mobile and tablets only */
+main aside button#close{
     display: none;
+    background: var(--color-primary);
+    border: .5rem var(--color-primary-light);
+    color: var(--color-white);
 }
 
-main aside .sidebar a
-{
+.sidebar a{
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -261,21 +251,18 @@ main aside .sidebar a
     text-decoration: none;
 }
 
-main aside .sidebar a span
-{
+.sidebar a span{
     font-size: 1.7rem;
     margin-left: 3rem;
     transition: all 300ms ease;
 }
 
-main aside .sidebar a.active
-{
+.sidebar a.active{
     background: var(--color-white);
     color: var(--color-blue);
 }
 
-main aside .sidebar a.active::before
-{
+.sidebar a.active::before{
     content: ' ';
     width: .15rem;
     height: 100%;
@@ -283,44 +270,37 @@ main aside .sidebar a.active::before
     background: var(--color-primary);
 }
 
-main aside .sidebar a:hover
-{
-    color: var(--color-primary);
-
+.sidebar a:hover{
+    color: var(--color-font);
 }
 
-main aside .sidebar a:hover span
-{
+.sidebar a:hover span{
     margin-left: 2rem;
 }
 
-main aside .sidebar h4
-{
+.sidebar h4{
     font-weight: 500;
 }
 
  /* updates */
 
-main aside .alerts
-{
+main aside .alerts{
     background: var(--color-white);
+    color: var(--color-dark);
     border-radius: var(--border-radius-1);
     text-align: center;
     padding: var(--card-padding);
 }
 
-main aside .alerts span
-{
-    font-size: 2.8rem;
+main aside .alerts span{
+    font-size: 2rem;
 }
 
-main aside .alerts  h4
-{
+main aside .alerts  h4{
     margin: 1rem 0;
 }
 
-main aside .alerts  a
-{
+main aside .alerts  a{
     display: block;
     width: 100%;
     background: var(--color-primary);
@@ -329,6 +309,95 @@ main aside .alerts  a
     padding: .8rem 0;
     margin-top: 2rem;
     text-decoration: none;
+}
+
+main aside .alerts a:hover{
+    box-shadow: 0 1rem 2rem var(--color-primary-light);
+}
+
+main .reports
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+main .reports h1
+{
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+
+ /* payment styles */
+
+
+main .fast-payment
+ {
+    margin-top: 2rem;
+    display: flex;
+    align-self: center;
+    gap: 2rem;
+}
+
+main .fast-payment .badges
+{
+    display: flex;
+    gap: 1rem;
+    align-self: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+main .fast-payment .badge span
+{
+    width: .4375rem;
+    height: .4375rem;
+    border-radius: 50%;
+}
+
+main .fast-payment .badge{
+    padding: 0.6rem var(--card-padding);
+    background: var(--color-primary);
+    border-radius: var(--border-radius-2);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 300ms ease;
+} 
+
+main .fast-payment .badge:hover
+{
+    box-shadow: 0 0 1.5rem var(--color-primary-light);
+    cursor: pointer;
+}
+
+main .fast-payment .badge:first-child span{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    height: fit-content;
+    font-size: 1.5rem;
+}
+
+main .fast-payment .badge div
+{
+    display: flex;
+    gap: 2rem;
+    align-self: center;
+}
+
+/* CANVAS  */
+
+canvas#chart
+{
+    background: var(--color-primary);
+    max-width: 100%;
+    margin-top: 2rem;
+    border-radius: var(--color-border-radius);
+    padding: var(--card-padding);
 }
 
 
