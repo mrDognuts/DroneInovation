@@ -2,6 +2,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "insurancedbapp": "file:",
     "node": "^22.11.0",
     "pg": "^8.13.1"
   },
