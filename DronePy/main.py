@@ -2,94 +2,131 @@ import cv2
 import time
 import os
 from djitellopy import Tello
-from detectron2.engine import DefaultPredictor
-from detectron2.config import get_cfg
-from detectron2.utils.visualizer import Visualizer
+from pynput import keyboard as kp
+from model_predictor import load_model, analyze_image  # Import functions from model_predictor
 
-# Global variable to track the car number
+# Global variables
 car_number = 1
+capture_flag = False
 
-def capture_images(tello, num_images=8, output_dir="Dataset/before"):
+# Initialize the predictor by loading the model
+predictor = load_model("model_final.pth", "cpu")  # Adjust path and device as needed
+
+# File paths for logs
+drone_log_file = "drone_status_log.txt"
+keypress_log_file = "keypress_log.txt"
+
+def log_key_press(key):
+    """Log each key press to keypress_log.txt."""
+    with open(keypress_log_file, "a") as log:
+        log.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - Key pressed: {key}\n")
+
+def capture_and_save_image(frame, output_dir="Dataset/before"):
+    """Capture and save the image with an incremental filename."""
     global car_number
-    angle_step = 360 // num_images  # 8 images, 45 degrees per step
-    images = []
-
-    # Ensure the output directory exists
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # Loop through each angle position
-    for i in range(num_images):
-        # Rotate the drone and move slightly to the left for a circular path
-        tello.rotate_clockwise(angle_step)
-        tello.move_left(50)  # Adjust distance if needed
+    image_name = f"car{car_number}.1.png"
+    image_path = os.path.join(output_dir, image_name)
+    cv2.imwrite(image_path, frame)
+    print(f"Captured {image_path}")
 
-        # Allow stabilization
-        time.sleep(2)
+    car_number += 1  # Increment the car number after capturing the image
+    return image_path
 
-        # Capture the image from the current frame
-        frame = tello.get_frame_read().frame
-        image_name = f"car{car_number}.{i+1}.png"
-        image_path = os.path.join(output_dir, image_name)
-        cv2.imwrite(image_path, frame)
-        images.append(image_path)
-        print(f"Captured {image_path}")
+def on_press(key):
+    """Handle key press events."""
+    global capture_flag
+    try:
+        if key.char == 'c':  # Press 'c' to capture an image
+            capture_flag = True
+        log_key_press(key)
+    except AttributeError:
+        pass
 
-    # Increment the car number for the next car
-    car_number += 1
-    return images
+def get_drone_status(tello):
+    """Get and log drone status including battery, time, temperature, and height."""
+    battery_level = tello.get_battery()
+    flight_time = tello.get_flight_time()
+    temperature = tello.get_temperature()
+    status_info = (
+        f"{time.strftime('%Y-%m-%d %H:%M:%S')} - "
+        f"Battery: {battery_level}% | Time: {flight_time}s | Temp: {temperature}°C\n"
+    )
+    print(status_info)
+    with open(drone_log_file, "a") as log:
+        log.write(status_info)
 
-# def analyze_images(images, output_dir="Dataset/after"):
-#     # Load the trained model
-#     cfg = get_cfg()
-#     cfg.MODEL.WEIGHTS = os.path.join("model_final.pth")  # Path to the trained model
-#     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # Set a threshold for predictions
-#     predictor = DefaultPredictor(cfg)
+def getKeyboardInput(tello):
+    """Control drone movement using keyboard input and return movement values."""
+    lr, fb, ud, yv = 0, 0, 0, 0
+    speed = 50
 
-#     # Ensure the output directory exists
-#     if not os.path.exists(output_dir):
-#         os.makedirs(output_dir)
-
-#     # Analyze each captured image
-#     for image_path in images:
-#         im = cv2.imread(image_path)
-#         outputs = predictor(im)
-#         v = Visualizer(im[:, :, ::-1], metadata=None, scale=1.0)  # Adjust metadata as necessary
-#         v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-
-#         # Save the analyzed image
-#         output_image_name = os.path.basename(image_path).replace("car", "analyzed_car")
-#         output_image_path = os.path.join(output_dir, output_image_name)
-#         cv2.imwrite(output_image_path, v.get_image()[:, :, ::-1])
-#         print(f"Analyzed image saved at: {output_image_path}")
+    if kp.is_pressed("h"):  # Move left
+        lr = -speed
+    elif kp.is_pressed("k"):  # Move right
+        lr = speed
+    if kp.is_pressed("u"):  # Move forward
+        fb = speed
+    elif kp.is_pressed("j"):  # Move backward
+        fb = -speed
+    if kp.is_pressed("w"):  # Move up
+        ud = speed
+    elif kp.is_pressed("s"):  # Move down
+        ud = -speed
+    if kp.is_pressed("a"):  # Rotate left
+        yv = -speed
+    elif kp.is_pressed("d"):  # Rotate right
+        yv = speed
+    if kp.is_pressed("q"):  # Land
+        tello.land()
+        time.sleep(3)
+    if kp.is_pressed("e"):  # Take off
+        tello.takeoff()
+    
+    return [lr, fb, ud, yv]
 
 def main():
-    # Initialize Tello drone
+    global capture_flag
     tello = Tello()
-    tello.connect()
-
-    # Start video stream
-    tello.streamon()
-    time.sleep(2)  # Allow the stream to initialize
 
     try:
-        # Take off and reach the desired height
-        tello.takeoff()
-        tello.move_up(50)
+        tello.connect()
+        print("Connected to Tello...")
 
-        # Capture images from different angles around the car
-        images = capture_images(tello)
+        # Log initial drone status
+        get_drone_status(tello)
+        tello.streamon()
+        time.sleep(2)
+        print("Started streaming...")
 
-        # Land the drone after capturing images
+        # Start listener for key presses
+        listener = kp.Listener(on_press=on_press)
+        listener.start()
+
+        while True:
+            frame = tello.get_frame_read().frame
+            cv2.imshow("Tello Live Feed", frame)
+
+            # Get keyboard input for drone control
+            vals = getKeyboardInput(tello)
+            tello.send_rc_control(vals[0], vals[1], vals[2], vals[3])
+
+            if capture_flag:
+                image_path = capture_and_save_image(frame)
+                analyze_image(predictor, image_path)  # Use analyze_image with the loaded predictor
+                capture_flag = False
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
         tello.land()
 
-        # Analyze the captured images and save them in the "after" folder
-#        analyze_images(images)
-
     finally:
-        # Safely close the video stream and windows
         tello.streamoff()
         cv2.destroyAllWindows()
+        listener.stop()
 
 if __name__ == "__main__":
     main()
