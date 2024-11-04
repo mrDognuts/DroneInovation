@@ -6,7 +6,7 @@
     --color-gray-dark: #808080; 
     --color-light: #f0f8ff; 
     --color-dark: #2e2e2e; 
-    --color-primary: #b3e7ffa4; 
+    --color-primary: #6dc0e7a4; 
     --color-font: #fdf2e9;
     --color-success: #28a745; 
     --color-danger: #dc3545; 
@@ -17,6 +17,7 @@
     --color-success-light: #a8d5a2; 
     --color-danger-light: #f5a1a1; 
     --color-primary-light: #b3e7ff; 
+    --color-warning-light: rgba(255, 193, 7, 0.3);
     
     --card-padding: 1.6rem;
     --padding-1: 1rem;
@@ -120,6 +121,12 @@ small{
 .bg-dark{
     background: var(--color-dark);
     box-shadow: 0 .8rem .8rem var(--color-gray-dark);
+}
+
+.bg-warning
+{
+    background: var(--color-warning);
+    box-shadow: 0 .8rem .8rem var(--color-warning-light);
 }
 
  /* navigation styles */
