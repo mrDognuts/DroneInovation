@@ -29,7 +29,7 @@
 }
 
 body{
-    background: var(--color-blue);
+    background: var(--color-primary);
     font-family: "Gowun Batang", sans-serif;
     min-height: 100vh;
     color: var(--color-font);
@@ -75,7 +75,7 @@ small{
 }
 
 .text-muted{
-    color: var(--color--light);
+    color: var(--color-gray-dark);
 }
 
 .primary
@@ -253,7 +253,7 @@ main aside button#close{
     align-items: center;
     gap: 1.2rem;
     height: 4.2rem;
-    color: var(--color-gray-light);
+    color: var(--color-gray-dark);
     position: relative;
     text-decoration: none;
 }
@@ -377,7 +377,7 @@ main .fast-payment .badge{
 
 main .fast-payment .badge:hover
 {
-    box-shadow: 0 0 1.5rem var(--color-primary-light);
+    box-shadow: 0 0 3rem var(--color-primary-light);
     cursor: pointer;
 }
 
@@ -406,6 +406,62 @@ canvas#chart
     border-radius: var(--color-border-radius);
     padding: var(--card-padding);
 }
+
+
+/* EXPENSES */
+
+main section .rhs .expenses
+{
+    background: var(--color-primary);
+    border-radius: var(--color-border-radius);
+}
+
+main section.rhs .expenses img
+{
+    width: 3rem;
+}
+
+main section.rhs  .expenses .header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--card-padding);
+    padding-bottom:0;
+}
+
+main section.rhs .expenses .header a
+{
+    display: flex;
+    align-items: center;
+    color: var(--color-light);
+}
+
+main section.rhs .expenses .expense
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--card-padding);
+    border-bottom: .2rem solid var(--color-primary-light);
+}
+
+main section.rhs .expenses .expense p
+{
+    color: var(--color-font);
+}
+
+main section.rhs .expenses .expense:last-child
+{
+    border: none;
+}
+
+main section.rhs .expenses .expense:hover
+{
+    background: var(--color--light);
+}
+
+
 
 
 
