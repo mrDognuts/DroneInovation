@@ -3,3 +3,9 @@ DronePy.zip
 DronePy/model_final.pth
 *.pth
 DronePy/model_predictor.py
+Depreciated/MachineLearning_old/v9/output/model_final.pth
+Depreciated/MachineLearning_old/v10_on_graphics/output/model_final.pth
+Depreciated/MachineLearning_old/v10Modle_1.0/model_final.pth
+Drone_App_test/App/model_final.pth
+Drone_App_test/Drone/model_final.pth
+Machinelearning-Updated/v10_on_graphics/output/model_final.pth

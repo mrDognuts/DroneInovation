@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Upload an Image for Analysis</h2>
+        <input type="file" id="input-image" accept="image/*" />
+        <button onclick="predict()">Analyze Image</button>
+        
+        <h3>Processed Image:</h3>
+        <img id="processed-image" alt="Processed result will appear here" />
+    </div>
+
+    <script>
+        async function predict() {
+            const inputImage = document.getElementById('input-image').files[0];
+            const formData = new FormData();
+            formData.append('image', inputImage);
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            const processedImage = document.getElementById('processed-image');
+            processedImage.src = imageUrl;
+
+            // Ensure the loaded class is added after setting the src
+            processedImage.onload = () => {
+                processedImage.classList.add('loaded');
+            };
+        }
+    </script>
+</body>
+</html>
