@@ -28,6 +28,14 @@
     --border-radius-2: .15rem;
 }
 
+.dark-mode
+{
+    --color-primary:#131316;
+    --color-primary-light: #23232a;
+    --color-dark:#200f0f;
+    --color-gray-dark: #adacb5;
+}
+
 body{
     background: var(--color-primary);
     font-family: "Gowun Batang", sans-serif;
@@ -266,9 +274,9 @@ main aside button#close{
     transition: all 300ms ease;
 }
 
-.sidebar a.active{
-    background: var(--color-white);
-    color: var(--color-blue);
+.sidebar a span.active{
+    background: var(--color-blue);
+    color: var(--color-white);
 }
 
 .sidebar a.active::before{
@@ -503,6 +511,14 @@ main section.rhs .expenses .expense:hover
         height: 100vh;
         box-shadow: 2rem 0 2rem var(--color-primary-light);
         display: none;
+        animation: showSidebar 500ms ease forwards;
+    }
+
+    @keyframes showSidebar {
+        to
+        {
+            left: 0;
+        }
     }
 
     main aside button#close
@@ -573,4 +589,5 @@ main section.rhs .expenses .expense:hover
         gap: 1.4rem;
     }
 }
+
 
