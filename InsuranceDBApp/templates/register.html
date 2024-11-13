@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+        <title>Register</title>
+        <style>
+        body {
+            font-family:"Playfair Display", sans-serif;
+            background-color: white;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #1e90ff, #ffffff, #808080);
+            background-size: 200% 200%; /* Ensures that the gradient covers the entire element */      
+        }
+        
+       
+
+        form {
+            background-color: #ffffffb7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-weight: bold;
+            color: #1e90ff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        select
+        {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #1e90ff;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #1e90ff;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type="submit"] {
+            width: 48%;
+            padding: 10px;
+            background-color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            color: #0106078e;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e5533d;
+        }
+
+        .login-button {
+            width: 48%;
+            padding: 10px;
+            background-color: #87CEFA;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-button:hover {
+            background-color: #7AC0E8;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #87CEFA;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .home-button:hover {
+            background-color: #7AC0E8;
+        }
+    </style>
+    </head>
+    <body>
+        <form action="" method="post" >
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" required><br><br>
+
+        <label for="D-O-B">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        
+        <label for="gender">Gender:</label>
+        <select name="gender" id="">
+        <option value="M">M</option>
+        <option value="F">F</option>
+        </select>
+        
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Create Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <div class="button-group">
+            <input type="submit" value="Register">
+            <a href="login.jsp" class="login-button">Login</a>
+        </div>
+
+        <a href="index.html" class="home-button">Back to Home</a>
+
+    </form>
+    </body>
+</html>

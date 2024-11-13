@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Welcome</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+         <style>
+        body {
+            font-family: "Playfair Display", sans-serif;
+            background-color: white;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #1e90ff, #ffffff, #808080);
+            background-size: 200% 200%; /* Ensures that the gradient covers the entire element */
+            animation: gradientAnimation 15s ease infinite; /* Apply the animation */
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffffb7;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #0106078e;
+            margin-bottom: 30px;
+        }
+
+        .link-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #87CEFA;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .link-button:hover {
+            background-color: #7AC0E8;
+        }
+
+        .link-button.login {
+            background-color: #FFFFFF;
+            color: #0106078e;
+        }
+
+        .link-button.login:hover {
+            background-color: #F0F0F0;
+        }
+    </style>
+    </head>
+    <body>
+        <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
+        <div class="container">
+        <h1>Welcome</h1>
+        <a href="login.html" class="link-button login">Login</a>
+        <a href="register.html" class="link-button">Register</a>
+    </div>
+    </body>
+</html>
