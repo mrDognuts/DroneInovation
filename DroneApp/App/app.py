@@ -16,32 +16,26 @@ from detectron2 import model_zoo
 import warnings
 import logging
 
-# Ignore unnecessary warnings
+# Ignore warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
 warnings.filterwarnings("ignore")
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 app = Flask(__name__)
 
-# Define the base directory for file paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Ensure the uploads folder exists
+#upload folders
 uploads_dir = os.path.join(BASE_DIR, 'static', 'uploads')
 if not os.path.exists(uploads_dir):
     os.makedirs(uploads_dir)
-
-# Ensure folders for damaged and undamaged images exist
 damaged_folder = os.path.join(uploads_dir, 'damaged')
 undamaged_folder = os.path.join(uploads_dir, 'undamaged')
 
 if not os.path.exists(damaged_folder):
     os.makedirs(damaged_folder)
-
 if not os.path.exists(undamaged_folder):
     os.makedirs(undamaged_folder)
-
-# Load the trained .h5 model for damage detection
+#load models
 def load_damage_detection_model(model_path):
     try:
         model = load_model(model_path)
@@ -51,7 +45,7 @@ def load_damage_detection_model(model_path):
         print(f"[ERROR] Failed to load model: {e}")
         return None
 
-# Define the path for the damage detection model
+#Path to model
 damage_model_path = os.path.join(BASE_DIR, 'Car_detection.model.h5')
 damage_detection_model = load_damage_detection_model(damage_model_path)
 
@@ -62,7 +56,6 @@ def is_car_damaged(image):
         return "Model not loaded correctly, please check the model path."
     
     try:
-        # Open the image and resize it to (224, 224)
         img = Image.open(image)
         img = img.resize((224, 224)) 
         img_array = img_to_array(img)
@@ -79,16 +72,16 @@ def is_car_damaged(image):
 # Load Detectron2 model
 def load_detectron2_model(cfg, weights_path):
     cfg.MODEL.WEIGHTS = weights_path
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3  # threshold for detecting objects
-    cfg.MODEL.DEVICE = "cpu"  # Set to GPU if needed
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.3  # threshold 
+    cfg.MODEL.DEVICE = "cpu"  # Set to GPU if have
     predictor = DefaultPredictor(cfg)
     return predictor
 
 # Detectron2 configuration
 cfg = get_cfg()
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1  # Number of classes for damage detection
-cfg.MODEL.WEIGHTS = os.path.join(BASE_DIR, 'model_final.pth')  # Path to your trained model
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1  
+cfg.MODEL.WEIGHTS = os.path.join(BASE_DIR, 'model_final.pth')  
 
 # Load the Detectron2 model
 predictor = load_detectron2_model(cfg, cfg.MODEL.WEIGHTS)
@@ -119,31 +112,20 @@ def predict():
     if 'image' not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
 
-    files = request.files.getlist('image')  # Allow multiple file uploads
+    files = request.files.getlist('image')  #multiple file uploads
     results = []
 
     for file in files:
         img = Image.open(file.stream).convert('RGB')
-
-        # Generate unique filenames for each image
         unique_filename = f"{uuid.uuid4()}.jpg"
-        
-        # Convert the image to the format needed for damage detection
         img_path = os.path.join(uploads_dir, unique_filename)
         img.save(img_path)
-
-        # Check if the car is damaged
         damage_result = is_car_damaged(img_path)
         
-        # Decide the folder based on the damage result
         folder = 'damaged' if damage_result == "damaged" else 'undamaged'
         folder_path = os.path.join(uploads_dir, folder)
-        
-        # Check if the file already exists, and if so, overwrite it
         file_path = os.path.join(folder_path, unique_filename)
-        img.save(file_path)  # Overwrite the existing image
-
-        # Build the response for the uploaded image
+        img.save(file_path) 
         response = {
             "prediction": damage_result,
             "image_url": url_for('static', filename=f'uploads/{folder}/{unique_filename}'),
@@ -167,3 +149,5 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+#http://127.0.0.1:5000/
