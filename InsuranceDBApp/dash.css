@@ -535,11 +535,42 @@ main section.rhs .expenses .expense:hover
 
     main section.middle .cards
     {
-
+        grid-template-columns: 1fr 1fr;
     }
+
+    main canvas
+    {
+        margin: 3rem 0 1rem;
+    }
+   /* main section.rhs . */
 }
 
+/* MEDIA QUERIES FOR MOBILE DEVICES */
 
+@media screen and (max-width: 600) 
+{
+    nav .profile
+    {
+        gap: 2.6rem;
+    }
 
+    nav .profile h5, 
+    nav .profile span
+    {
+        display: none;
+    }
 
+    main section.middle .cards
+    {
+        grid-template-columns: 1fr;
+    }
+
+    main section.middle .fast-payment
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top:3rem;
+        gap: 1.4rem;
+    }
+}
 
