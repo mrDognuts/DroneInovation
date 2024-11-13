@@ -249,6 +249,7 @@ main aside button#close{
 }
 
 .sidebar a{
+    
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -256,6 +257,7 @@ main aside button#close{
     color: var(--color-gray-dark);
     position: relative;
     text-decoration: none;
+    width: 5cm; /*this is the width of the sideccolumn */
 }
 
 .sidebar a span{
