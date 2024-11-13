@@ -3,3 +3,5 @@ DronePy.zip
 DronePy/model_final.pth
 *.pth
 DronePy/model_predictor.py
+InsuranceDBApp/addClient.html
+InsuranceDBApp/clientsFile.ejs

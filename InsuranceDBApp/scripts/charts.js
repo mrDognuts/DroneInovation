@@ -1,10 +1,10 @@
-import Chart from 'chart.js/auto';
+/* import Chart from 'chart.js/auto'; */
 
 
-const chart = document.querySelector("#chart").getContext('2d');
+const chart = document.querySelector('#chart').getContext('2d');
 
 new Chart(chart, {
-  type: "line",
+  type: 'line',
   data: {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
@@ -32,16 +32,24 @@ new Chart(chart, {
       legend: {
         position: 'top',
       },
+      labels:
+      {
+        color: '#fdf2e9'
+      },
       tooltip: {
         enabled: true,
-      }
+      },
+      titleFont:
+      {
+        color: '#fdf2e9'
+      },
     },
     scales: {
       y: {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Count'
+          text: 'Number'
         }
       },
       x: {

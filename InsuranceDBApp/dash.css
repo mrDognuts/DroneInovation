@@ -405,12 +405,13 @@ canvas#chart
     margin-top: 2rem;
     border-radius: var(--color-border-radius);
     padding: var(--card-padding);
+    color: var(--color-font);
 }
 
 
 /* EXPENSES */
 
-main section .rhs .expenses
+main section.rhs .expenses
 {
     background: var(--color-primary);
     border-radius: var(--color-border-radius);
@@ -421,7 +422,7 @@ main section.rhs .expenses img
     width: 3rem;
 }
 
-main section.rhs  .expenses .header
+main section.rhs .expenses .header
 {
     display: flex;
     justify-content: space-between;
@@ -458,7 +459,8 @@ main section.rhs .expenses .expense:last-child
 
 main section.rhs .expenses .expense:hover
 {
-    background: var(--color--light);
+    background: var(--color-primary-light);
+    color: var(--color-gray-dark);
 }
 
 
