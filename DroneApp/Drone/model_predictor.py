@@ -29,7 +29,7 @@ def load_detectron2_model(cfg, weights_path):
     return DefaultPredictor(cfg)
 
 # Initialize models
-damage_model_path = r"C:\Users\walte\Downloads\0Github\PRJ_FINAL\DroneInovation\Drone_App_Test\Drone\Car_detection.model.h5"
+damage_model_path = r"C:\Users\walte\Downloads\0Github\PRJ_FINAL\DroneInovation\DroneApp\Drone\Car_detection.model.h5"
 damage_detection_model = load_damage_detection_model(damage_model_path)
 
 cfg = get_cfg()
@@ -37,7 +37,7 @@ cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rc
 cfg.DATASETS.TRAIN = ("car_dataset_train",)
 cfg.DATASETS.TEST = ("car_dataset_val",)
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1  
-cfg.MODEL.WEIGHTS = r"C:\Users\walte\Downloads\0Github\PRJ_FINAL\DroneInovation\Drone_App_Test\Drone\model_final.pth"
+cfg.MODEL.WEIGHTS = r"C:\Users\walte\Downloads\0Github\PRJ_FINAL\DroneInovation\DroneApp\Drone\model_final.pth"
 
 predictor = load_detectron2_model(cfg, cfg.MODEL.WEIGHTS)
 damage_classes = ["damaged", "non-damaged"]
