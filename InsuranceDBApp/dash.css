@@ -249,6 +249,7 @@ main aside button#close{
 }
 
 .sidebar a{
+    
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -256,6 +257,7 @@ main aside button#close{
     color: var(--color-gray-dark);
     position: relative;
     text-decoration: none;
+    width: 5cm; /*this is the width of the sideccolumn */
 }
 
 .sidebar a span{
@@ -463,6 +465,79 @@ main section.rhs .expenses .expense:hover
     color: var(--color-gray-dark);
 }
 
+
+/* MEDIA QUERIES FOR TABLETS */
+
+@media screen and (max-width: 1024px) 
+{
+    nav .searchbar
+    {
+        display: none;
+    }
+
+    nav .profile
+    {
+        gap: 2rem;
+    }
+
+    nav .profile button#menu-btn
+    {
+        display: inline;
+        background: transparent;
+        color: var(--color-dark);
+    }
+
+    main
+    {
+        grid-template-columns: 1fr;
+    }
+
+    main aside
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        background: var(--color-primary);
+        width: 22rem;
+        height: 100vh;
+        box-shadow: 2rem 0 2rem var(--color-primary-light);
+        display: none;
+    }
+
+    main aside button#close
+    {
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 4;
+        background: transparent;
+        color: var(--color-dark);
+    }
+
+    button:hover
+    {
+        cursor: pointer;
+    }
+
+    main .aside .sidebar
+    {
+        margin-top: 4rem;
+    }
+
+    main aside .updates
+    {
+        display: none;
+    }
+
+    main section.middle .cards
+    {
+
+    }
+}
 
 
 

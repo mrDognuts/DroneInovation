@@ -1,0 +1,34 @@
+.table-container {
+    width: 30cm;      /* Full width */
+    max-height: 15cm; /* Fixed height for vertical scroll */
+    overflow-y: auto;  /* Enable vertical scroll */
+    overflow-x: auto;  /* Enable horizontal scroll if needed */
+    border: 1px solid #ddd;
+    border-radius: 2rem;
+    margin-left: 1cm;
+    margin-top: 2cm;
+    background-color: var(--color-primary);
+
+}
+
+
+
+/* Basic table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table thead{/*thhis keeps the tabe header frozen*/
+    background-color: #f4f4f4;
+    color: black !important;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

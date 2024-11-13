@@ -3,5 +3,14 @@ DronePy.zip
 DronePy/model_final.pth
 *.pth
 DronePy/model_predictor.py
+<<<<<<< HEAD
 InsuranceDBApp/addClient.html
 InsuranceDBApp/clientsFile.ejs
+=======
+Depreciated/MachineLearning_old/v9/output/model_final.pth
+Depreciated/MachineLearning_old/v10_on_graphics/output/model_final.pth
+Depreciated/MachineLearning_old/v10Modle_1.0/model_final.pth
+DroneApp/App/model_final.pth
+DroneApp/Drone/model_final.pth
+Machinelearning-Updated/v10_on_graphics/output/model_final.pth
+>>>>>>> 962b447c13bde5371ef6187652d115299dacc889
