@@ -61,6 +61,10 @@ def target_page():
 def drones():
     return render_template('drones.html')
 
+@app.route('/flights')
+def drones():
+    return render_template('flights.html')
+
 @app.route('/clients')
 def clients():
     conn = sqlite3.connect(DATABASE_PATH)

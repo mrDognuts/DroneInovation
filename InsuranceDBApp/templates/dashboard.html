@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance DB || Home</title>
+    <title>Insurance DB || Dashboard</title>
 
     <!-- stylesheet import -->
     <link rel="stylesheet" href="/InsuranceDBApp/templates/dash.css">
@@ -38,11 +38,11 @@
                     </div>
                     
                     <div class="profile-photo">
-                        <img src="/images/Default-Profile-Picture-Download-PNG-Image.png">
+                        <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile Picture">
                     </div>
                 
                     <h5>Name Surname</h5>
-                    <span class="material-symbols-sharp">keyboard_arrow_down</span>
+                    <span class="material-symbols-sharp arrow">keyboard_arrow_down</span>
                     <button id="menu-btn"><span class="material-symbols-sharp"> menu </span></button>
 
                  </div>
@@ -68,22 +68,20 @@
                                 <h4>Dashboard</h4>
                             </a>
 
-                            <a href="./flights.html">
-                                <span class="material-symbols-sharp">flight_takeoff</span>
+                            <a href="#">
+                                <span class="material-symbols-sharp ">flight_takeoff</span>
                                 <h4>Flights</h4>
                             </a>
-
-                            <a href="#">
+                            <a href="http://127.0.0.1:5000/">
                                 <span class="material-symbols-sharp">summarize</span>
                                 <h4>Claims</h4>
-                            </a>
-                            
-                            <a href="{{ url_for('drones') }}">
+                            </a>                       
+                            <a href="./drones.html">
                                 <span class="material-symbols-sharp">helicopter</span>
                                 <h4>Drones</h4>
                             </a>
 
-                            <a href="{{ url_for('clients') }}">
+                            <a href="./clients.html">
                                 <span class="material-symbols-sharp"> groups</span>
                                 <h4>Clients</h4>
                             </a>
@@ -268,7 +266,7 @@
                     </div>
 
                     <div class="expense">
-                        <img src="images/equipment.png">
+                        <img src="{{ url_for('static', filename='images/equipment.png') }}" alt="Equipment">
                         <h4>Equipment</h4>
                         <div class="date-time">
                             <p>7, Nov 2024</p>
@@ -288,7 +286,7 @@
                     <!-- END OF EXPENSE -->
 
                     <div class="expense">
-                        <img src="images/training.png">
+                        <img src="{{ url_for('static', filename='images/training.png') }}" alt="Training">                      
                         <h4>Training</h4>
                         <div class="date-time">
                             <p>15, Oct 2023</p>
@@ -308,7 +306,7 @@
                     <!-- END OF EXPENSE -->
 
                     <div class="expense">
-                        <img src="images/marketing.png">
+                        <img src="{{ url_for('static', filename='images/marketing.png') }}" alt="Marketing">                     
                         <h4>Marketing</h4>
                         <div class="date-time">
                             <p>13, Sep 2023</p>
@@ -328,7 +326,7 @@
                     <!-- END OF EXPENSE -->
 
                     <div class="expense">
-                        <img src="images/services.png">
+                        <img src="{{ url_for('static', filename='images/services.png') }}" alt="Services">
                         <h4>Services</h4>
                         <div class="date-time">
                             <p>13, Sep 2023</p>
@@ -364,16 +362,17 @@
 
      <!-- CODE FOR IMPORTING CHART TO WEBSITE -->
 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
 
 
     <!--  LINK JAVASCRIPT TO WEB PAGE -->
 
-     <script src="/InsuranceDBApp/js/charts.js"></script>
+    <script src="{{ url_for('static', filename='scripts/dashboard.js') }}"></script>  <!-- IMPORT FOR FLASK TO IDENTIFY JS FILE FOR CHARTS -->
+
+     <script src="/InsuranceDBApp/scripts/dashboard.js"></script>
     
 </body>
 </html>

@@ -28,6 +28,14 @@
     --border-radius-2: .15rem;
 }
 
+.dark-mode
+{
+    --color-primary:#131316;
+    --color-primary-light: #23232a;
+    --color-dark:#200f0f;
+    --color-gray-dark: #adacb5;
+}
+
 body{
     background: var(--color-primary);
     font-family: "Gowun Batang", sans-serif;
@@ -223,6 +231,15 @@ nav .profile button{
     display: none;
 }
 
+nav .profile .h5
+{
+    color: var(--color-dark);
+}
+.arrow
+{
+    color: var(--color-dark);
+}
+
     /* aside and sidebar styles */
 
 main{
@@ -266,9 +283,9 @@ main aside button#close{
     transition: all 300ms ease;
 }
 
-.sidebar a.active{
-    background: var(--color-white);
-    color: var(--color-blue);
+.sidebar a span.active{
+    background: var(--color-blue);
+    color: var(--color-white);
 }
 
 .sidebar a.active::before{
@@ -407,12 +424,13 @@ canvas#chart
     margin-top: 2rem;
     border-radius: var(--color-border-radius);
     padding: var(--card-padding);
+    color: var(--color-font);
 }
 
 
 /* EXPENSES */
 
-main section .rhs .expenses
+main section.rhs .expenses
 {
     background: var(--color-primary);
     border-radius: var(--color-border-radius);
@@ -423,7 +441,7 @@ main section.rhs .expenses img
     width: 3rem;
 }
 
-main section.rhs  .expenses .header
+main section.rhs .expenses .header
 {
     display: flex;
     justify-content: space-between;
@@ -460,11 +478,132 @@ main section.rhs .expenses .expense:last-child
 
 main section.rhs .expenses .expense:hover
 {
-    background: var(--color--light);
+    background: var(--color-primary-light);
+    color: var(--color-gray-dark);
+}
+
+main section.rhs .expenses .expense div hover
+{
+    color: var(--color-gray-dark);
 }
 
 
 
 
+/* MEDIA QUERIES FOR TABLETS */
+
+@media screen and (max-width: 1024px) 
+{
+    nav .searchbar
+    {
+        display: none;
+    }
+
+    nav .profile
+    {
+        gap: 2rem;
+    }
+
+    nav .profile button#menu-btn
+    {
+        display: inline;
+        background: transparent;
+        color: var(--color-dark);
+    }
+
+    main
+    {
+        grid-template-columns: 1fr;
+    }
+
+    main aside
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        background: var(--color-primary);
+        width: 22rem;
+        height: 100vh;
+        box-shadow: 2rem 0 2rem var(--color-primary-light);
+        display: none;
+        animation: showSidebar 500ms ease forwards;
+    }
+
+    @keyframes showSidebar {
+        to
+        {
+            left: 0;
+        }
+    }
+
+    main aside button#close
+    {
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 4;
+        background: transparent;
+        color: var(--color-dark);
+    }
+
+    button:hover
+    {
+        cursor: pointer;
+    }
+
+    main .aside .sidebar
+    {
+        margin-top: 4rem;
+    }
+
+    main aside .updates
+    {
+        display: none;
+    }
+
+    main section.middle .cards
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    main canvas
+    {
+        margin: 3rem 0 1rem;
+    }
+   /* main section.rhs . */
+}
+
+/* MEDIA QUERIES FOR MOBILE DEVICES */
+
+@media screen and (max-width: 600) 
+{
+    nav .profile
+    {
+        gap: 2.6rem;
+    }
+
+    nav .profile h5, 
+    nav .profile span
+    {
+        display: none;
+    }
+
+    main section.middle .cards
+    {
+        grid-template-columns: 1fr;
+    }
+
+    main section.middle .fast-payment
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top:3rem;
+        gap: 1.4rem;
+    }
+}
 
 

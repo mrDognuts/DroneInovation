@@ -110,7 +110,7 @@
     </head>
     <body>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
-        <form action="Login" method="post">
+        <form action="/login" method="POST">
             <h1>Login</h1>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br><b> 
@@ -118,7 +118,7 @@
             <label for="password">Password:</label>
             <input type="text" id="password" name="password" required><br><b>
                 
-            <input type="submit" value="Login" >
+            <input type="submit" value="Login">
             
             <a href="register.jsp" class="register-link">Don't have an account? Register here</a>
 
