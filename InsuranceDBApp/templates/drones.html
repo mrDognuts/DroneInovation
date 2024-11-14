@@ -16,6 +16,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='dash.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='drones.css') }}">
 
+    <script>
+        function runScript() {
+            fetch('/run-script')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "Script executed successfully") {
+                        alert("Script ran successfully!");
+                    } else {
+                        alert("Error: " + data.error);
+                    }
+                })
+                .catch(error => {
+                    alert("An error occurred: " + error);
+                });
+        }
+    </script>
+
 </head>
 </head>
 <body>
@@ -46,7 +63,7 @@
 
                 <div>
                     <button id="one">Request Drone 1</button>
-                    <button id="two">Request Drone 2</button>
+                    <button onclick="runScript()" id="two">Request Drone 2</button>
                     <button id="three">Request Done 3</button>
                 </div>
 
