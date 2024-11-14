@@ -61,9 +61,9 @@ def target_page():
 def drones():
     return render_template('drones.html')
 
-@app.route('/flights')
-def drones():
-    return render_template('flights.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/clients')
 def clients():

@@ -36,7 +36,36 @@
 </head>
 </head>
 <body>
+    <nav>
+        <header class="header">
 
+                <img src="" alt="" class="logo">
+
+                <div class="searchbar">
+                    <span class="material-symbols-sharp">search</span> 
+                    <input type="search" name="search" id="search" placeholder="Search">  
+                </div>
+
+                <div class="profile">
+
+                    <div class="themetoggle">
+                        <span class="material-symbols-sharp active">light_mode</span>
+                        <span class="material-symbols-sharp">dark_mode</span>
+                    </div>
+                    
+                    <div class="profile-photo">
+                        <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile Picture">
+                    </div>
+                
+                    <h5>Name Surname</h5>
+                    <span class="material-symbols-sharp arrow">keyboard_arrow_down</span>
+                    <button id="menu-btn"><span class="material-symbols-sharp"> menu </span></button>
+
+                 </div>
+
+
+        </header>
+     </nav>
     
     
     <main>
@@ -69,7 +98,7 @@
 
                 <div class="sidebar">
                     
-                        <a href="./dashboard.html">
+                        <a href="{{ url_for('home') }}">
                             <span class="material-symbols-sharp active">dashboard</span>
                             <h4>Dashboard</h4>
                         </a>
@@ -84,19 +113,19 @@
                             <h4>Claims</h4>
                         </a>
                         
-                        <a href="./drones.html">
+                        <a href="{{ url_for('drones') }}">
                             <span class="material-symbols-sharp">helicopter</span>
                             <h4>Drones</h4>
                         </a>
 
-                        <a href="./clients.html">
+                        <a href="{{ url_for('clients') }}">
                             <span class="material-symbols-sharp"> groups</span>
                             <h4>Clients</h4>
                         </a>
 
-                        <a href="#">
+                        <a href="{{ url_for('about') }}">
                             <span class="material-symbols-sharp"> help_center </span>
-                            <h4>Help Center</h4>
+                            <h4>About</h4>
                         </a>
 
                         <a href="#">

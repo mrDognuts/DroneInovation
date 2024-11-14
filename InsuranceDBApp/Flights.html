@@ -16,6 +16,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <nav>
+        <header class="header">
+
+                <img src="" alt="" class="logo">
+
+                <div class="searchbar">
+                    <span class="material-symbols-sharp">search</span> 
+                    <input type="search" name="search" id="search" placeholder="Search">  
+                </div>
+
+                <div class="profile">
+
+                    <div class="themetoggle">
+                        <span class="material-symbols-sharp active">light_mode</span>
+                        <span class="material-symbols-sharp">dark_mode</span>
+                    </div>
+                    
+                    <div class="profile-photo">
+                        <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile Picture">
+                    </div>
+                
+                    <h5>Name Surname</h5>
+                    <span class="material-symbols-sharp arrow">keyboard_arrow_down</span>
+                    <button id="menu-btn"><span class="material-symbols-sharp"> menu </span></button>
+
+                 </div>
+
+
+        </header>
+     </nav>
     <main>
         <aside>
                     
@@ -52,7 +82,7 @@
     
                     <a href="#">
                         <span class="material-symbols-sharp"> help_center </span>
-                        <h4>Help Center</h4>
+                        <h4>About</h4>
                     </a>
     
                     <a href="#">
