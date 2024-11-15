@@ -99,7 +99,7 @@
                 <div class="sidebar">
                     
                         <a href="{{ url_for('home') }}">
-                            <span class="material-symbols-sharp active">dashboard</span>
+                            <span class="material-symbols-sharp">dashboard</span>
                             <h4>Dashboard</h4>
                         </a>
 
@@ -114,7 +114,7 @@
                         </a>
                         
                         <a href="{{ url_for('drones') }}">
-                            <span class="material-symbols-sharp">helicopter</span>
+                            <span class="material-symbols-sharp active">helicopter</span>
                             <h4>Drones</h4>
                         </a>
 
@@ -156,5 +156,6 @@
     </main>
 
     <script src="{{ url_for('static', filename='scripts/dashboard.js') }}"></script>  <!-- IMPORT FOR FLASK TO IDENTIFY JS FILE FOR CHARTS AND THEME TOGGLE -->
+
 </body>
 </html>
