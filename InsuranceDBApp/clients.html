@@ -91,129 +91,21 @@
         <tbody>
             <!-- Add multiple rows to see the scrolling effect -->
             
-            <tr>
-                <td>1</td>
-                <td>Alice</td>
-                <td>24</td>
-                <td>Engineer</td>
-            </tr>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client[0] }}</td>  <!-- Accessing by index -->
+                    <td>{{ client[1] }}</td>
+                    <td>{{ client[2] }}</td>
+                    <td>{{ client[3] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">No clients found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
             
-            <tr>
-                <td>2</td>
-                <td>Bob</td>
-                <td>30</td>
-                <td>Designer</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Charlie</td>
-                <td>27</td>
-                <td>Developer</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Daisy</td>
-                <td>22</td>
-                <td>Data Analyst</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Ella</td>
-                <td>35</td>
-                <td>Manager</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Frank</td>
-                <td>40</td>
-                <td>Sales</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>Grace</td>
-                <td>28</td>
-                <td>Writer</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>Harry</td>
-                <td>26</td>
-                <td>Marketer</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Ivy</td>
-                <td>29</td>
-                <td>Researcher</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>Jack</td>
-                <td>33</td>
-                <td>Consultant</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Alice</td>
-                <td>24</td>
-                <td>Engineer</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Bob</td>
-                <td>30</td>
-                <td>Designer</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Charlie</td>
-                <td>27</td>
-                <td>Developer</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Daisy</td>
-                <td>22</td>
-                <td>Data Analyst</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Ella</td>
-                <td>35</td>
-                <td>Manager</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Frank</td>
-                <td>40</td>
-                <td>Sales</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>Grace</td>
-                <td>28</td>
-                <td>Writer</td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>Harry</td>
-                <td>26</td>
-                <td>Marketer</td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>Ivy</td>
-                <td>29</td>
-                <td>Researcher</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>Jack</td>
-                <td>33</td>
-                <td>Consultant</td>
-            </tr>
-            <!-- Add more rows if necessary -->
-        </tbody>
     </table>
 </div>
 </main>

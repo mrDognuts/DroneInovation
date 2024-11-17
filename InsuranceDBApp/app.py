@@ -1,9 +1,34 @@
 from flask import Flask, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 import sqlite3
 import subprocess
 import os
 
 app = Flask(__name__)
+
+""" Configure the PostgreSQL database connection """
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:EMMANUEL7@localhost:5432/InsuranceDB'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize SQLAlchemy
+db = SQLAlchemy(app)
+
+""" retrieve all existing tables """
+with app.app_context():     
+    db.Model.metadata.reflect(bind=db.engine)
+
+
+""" define classes to use as reference for getting tables   """  
+
+class tblClients(db.Model):
+    __tablename__ = 'tblclients'
+    __table__ = db.Model.metadata.tables['tblclients']
+
+class tblClaims(db.Model):
+    __tablename__ = 'tblclaims'
+    __table__ = db.Model.metadata.tables['tblclaims']
 
 DATABASE_PATH = 'InsuranceDB.db'
 def init_db():
@@ -65,15 +90,27 @@ def drones():
 def about():
     return render_template('about.html')
 
+
 @app.route('/clients')
 def clients():
-    conn = sqlite3.connect(DATABASE_PATH)
+    
+    result = db.session.execute(text('SELECT * FROM tblclients'))
+    clients = result.fetchall()
+    return render_template('clients.html', clients=clients)
+    """ conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM tblClients")
     clients_data = cursor.fetchall()
-    conn.close()
+    conn.close() """
 
-    return render_template('clients.html',clients=clients_data)
+    """ return render_template('clients.html',clients=clients_data) """
+
+@app.route('/claims')
+def claims():
+    
+    result = db.session.execute(text('SELECT * FROM tblclaims'))
+    claims = result.fetchall()
+    return render_template('claims.html', claims=claims)
 
 @app.route('/run-script')
 def run_script():
