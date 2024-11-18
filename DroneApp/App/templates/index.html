@@ -3,69 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Car Damage Detection using AI to identify damaged parts of cars through image analysis.">
     <title>Car Damage Detection</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div id="back-to-top" onclick="scrollToTop()">↑</div>
+
     <div class="container">
         <h2>Upload Images for Analysis</h2>
+        
         <div id="drag-drop-area" class="drag-drop-area">
             <p>Drag and drop images here, or click to select images.</p>
             <input type="file" id="input-images" accept="image/*" multiple style="display: none;" />
         </div>
 
-        <button onclick="predict()">Analyze Images</button>
+        <button onclick="predict()" id="analyze-btn" disabled>Analyze Images</button>
         <button type="button" onclick="resetPage()">Reset</button>
 
-        <div id="loading-indicator" class="loading-indicator">Loading...</div>
+        <div id="loading-indicator" class="loading-indicator" style="display:none;">Loading...</div>
+        <div id="no-images-message" class="no-images-message" style="display:none;">No images selected. Please upload images first.</div>
 
         <div id="image-preview-container" class="image-preview-container"></div> <!-- Image preview area -->
         <div id="prediction-results" class="prediction-results"></div> <!-- Prediction result area -->
     </div>
 
     <script>
-        // Handling drag-and-drop functionality
         const dragDropArea = document.getElementById('drag-drop-area');
         const inputImages = document.getElementById('input-images');
         const predictionResults = document.getElementById('prediction-results');
         const imagePreviewContainer = document.getElementById('image-preview-container');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const noImagesMessage = document.getElementById('no-images-message');
         let filesToUpload = []; // To store files before sending to the server
 
-        // Trigger file selection when the area is clicked
-        dragDropArea.addEventListener('click', () => {
-            inputImages.click();
-        });
+        dragDropArea.addEventListener('click', () => inputImages.click());
+        dragDropArea.addEventListener('dragover', (e) => { e.preventDefault(); dragDropArea.classList.add('hover'); });
+        dragDropArea.addEventListener('dragleave', () => dragDropArea.classList.remove('hover'));
+        dragDropArea.addEventListener('drop', (e) => { e.preventDefault(); dragDropArea.classList.remove('hover'); handleFiles(e.dataTransfer.files); });
 
-        // Handle drag-over event
-        dragDropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dragDropArea.classList.add('hover');
-        });
+        inputImages.addEventListener('change', (e) => handleFiles(e.target.files));
 
-        // Handle drag-leave event
-        dragDropArea.addEventListener('dragleave', () => {
-            dragDropArea.classList.remove('hover');
-        });
-
-        // Handle drop event
-        dragDropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dragDropArea.classList.remove('hover');
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-
-        // Handle file selection
-        inputImages.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
-
-        // Handle file upload and preview
         function handleFiles(files) {
             imagePreviewContainer.innerHTML = ''; // Clear previous previews
             filesToUpload = Array.from(files); // Store files for later submission
 
-            // Preview images
+            // If no files are uploaded, show the message
+            if (filesToUpload.length === 0) {
+                noImagesMessage.style.display = 'block';
+                analyzeBtn.disabled = true;
+            } else {
+                noImagesMessage.style.display = 'none';
+                analyzeBtn.disabled = false;
+            }
+
             filesToUpload.forEach(file => {
                 const img = document.createElement('img');
                 img.src = URL.createObjectURL(file);
@@ -79,7 +71,6 @@
             });
         }
 
-        // Analyze images when the "Analyze Images" button is pressed
         function predict() {
             if (filesToUpload.length === 0) {
                 alert("Please upload images first.");
@@ -87,83 +78,71 @@
             }
 
             const formData = new FormData();
-            filesToUpload.forEach(file => {
-                formData.append('image', file);
-            });
+            filesToUpload.forEach(file => formData.append('image', file));
 
-            document.getElementById('loading-indicator').style.display = 'block';
-
-            // Make the request to the server to process the images
+            loadingIndicator.style.display = 'block';
             fetch('/predict', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('loading-indicator').style.display = 'none';
+                loadingIndicator.style.display = 'none';
                 displayResults(data);
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert("An error occurred while processing the images.");
-                document.getElementById('loading-indicator').style.display = 'none';
+                loadingIndicator.style.display = 'none';
             });
         }
 
-// Display the results of predictions
-function displayResults(data) {
-    predictionResults.innerHTML = ''; // Clear previous results
+        function displayResults(data) {
+            predictionResults.innerHTML = '';
+            data.forEach((result, index) => {
+                const card = imagePreviewContainer.children[index];
+                const predictionResult = document.createElement('div');
+                predictionResult.classList.add('prediction-result');
 
-    data.forEach((result, index) => {
-        // Get the corresponding image card (we already have the preview)
-        const card = imagePreviewContainer.children[index]; 
+                const predictionText = document.createElement('p');
+                predictionText.textContent = `Prediction: The car is ${result.prediction} (${result.confidence})`;
+                predictionResult.appendChild(predictionText);
 
-        const predictionResult = document.createElement('div');
-        predictionResult.classList.add('prediction-result');
+                if (result.processed_image_url) {
+                    const processedImage = document.createElement('img');
+                    processedImage.src = result.processed_image_url;
+                    processedImage.alt = 'Processed Image (Damage Segmentation)';
+                    processedImage.style.maxWidth = '100%';
+                    processedImage.style.height = 'auto';
+                    predictionResult.appendChild(processedImage);
 
-        // Create the prediction text
-        const predictionText = document.createElement('p');
-        predictionText.textContent = `Prediction: The car is ${result.prediction}`;
-        predictionResult.appendChild(predictionText);
+                    if (result.detected_parts && result.detected_parts.length > 0) {
+                        const partList = document.createElement('ul');
+                        partList.textContent = 'Detected Damaged Parts:';
+                        result.detected_parts.forEach(part => {
+                            const partItem = document.createElement('li');
+                            partItem.textContent = `${part.label} (Confidence: ${part.confidence}%)`;
+                            partList.appendChild(partItem);
+                        });
+                        predictionResult.appendChild(partList);
+                    }
+                }
 
-        // Display the original image if it hasn't been displayed yet
-        if (!card.querySelector('img')) {
-            const originalImage = document.createElement('img');
-            originalImage.src = result.image_url;
-            originalImage.alt = 'Original Image';
-            originalImage.style.maxWidth = '100%';
-            originalImage.style.height = 'auto';
-            card.appendChild(originalImage);
+                const message = document.createElement('p');
+                message.textContent = result.message;
+                predictionResult.appendChild(message);
+                card.appendChild(predictionResult);
+            });
         }
 
-        // If there is a processed (segmented) image, display it
-        if (result.processed_image_url) {
-            const processedImage = document.createElement('img');
-            processedImage.src = result.processed_image_url;
-            processedImage.alt = 'Processed Image (Damage Segmentation)';
-            processedImage.style.maxWidth = '100%';
-            processedImage.style.height = 'auto';
-            predictionResult.appendChild(processedImage);
-        }
-
-        // Display any additional message
-        const damageMessage = document.createElement('p');
-        damageMessage.textContent = result.message || '';  // Display damage message if available
-        predictionResult.appendChild(damageMessage);
-
-        // Append the prediction results under the image (or update the existing block)
-        card.appendChild(predictionResult); 
-    });
-}
-
-
-        // Reset page
         function resetPage() {
             inputImages.value = ''; 
             filesToUpload = [];
             imagePreviewContainer.innerHTML = ''; 
             predictionResults.innerHTML = ''; 
-            document.getElementById('loading-indicator').style.display = 'none';
+            loadingIndicator.style.display = 'none';
+            noImagesMessage.style.display = 'none';
+            analyzeBtn.disabled = true;
         }
     </script>
 </body>

@@ -3,7 +3,7 @@ import time
 import os
 from djitellopy import Tello
 from pynput import keyboard as kp
-from model_predictor import process_images
+#from model_predictor import process_images
 
 car_number = 1
 capture_flag = False
@@ -121,13 +121,12 @@ def main():
                 capture_flag = False
 
                 # Process all captured images once capture flag is set
-                results = process_images(captured_images)
-                for result in results:
-                    print(f"Result for {result['original_image_path']}: {result['message']}")
-                    if "segmented_image_path" in result:
-                        print(f"Segmented image saved at: {result['segmented_image_path']}")
+                #results = process_images(captured_images)
+                # for result in results:
+                #     print(f"Result for {result['original_image_path']}: {result['message']}")
+                #     if "segmented_image_path" in result:
+                #         print(f"Segmented image saved at: {result['segmented_image_path']}")
                 
-                # Clear the captured images list after processing
                 captured_images.clear()
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
